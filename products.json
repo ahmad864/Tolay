@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Man T-shirt",
+    "price": 30,
+    "image": "images/tshirt-img.png"
+  },
+  {
+    "id": 2,
+    "name": "Man Shirt",
+    "price": 30,
+    "image": "images/dress-shirt-img.png"
+  },
+  {
+    "id": 3,
+    "name": "Woman Scart",
+    "price": 30,
+    "image": "images/women-clothes-img.png"
+  }
+]
