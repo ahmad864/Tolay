@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سلة التسوق</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .cart-item { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+    .cart-item img { width: 80px; }
+    .total { font-size: 20px; font-weight: bold; margin-top: 20px; }
+    button { padding: 5px 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 سلة التسوق</h1>
+  <div id="cart-container"></div>
+  <div class="total">الإجمالي: $<span id="total-price">0</span></div>
+  
+  <button onclick="checkout()">تأكيد الطلب</button>
+  <a href="index.html" class="btn btn-secondary">⬅️ العودة للمتجر</a>
+
+  <script>
+    // جلب السلة من localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const container = document.getElementById('cart-container');
+    let total = 0;
+
+    if(cart.length === 0) {
+      container.innerHTML = "<p>السلة فارغة</p>";
+    } else {
+      cart.forEach((p, i) => {
+        container.innerHTML += `
+          <div class="cart-item">
+            <img src="${p.image}" alt="${p.name}">
+            <p>${p.name} - $${p.price}</p>
+            <button onclick="removeFromCart(${i})">🗑️ حذف</button>
+          </div>`;
+        total += p.price;
+      });
+    }
+
+    document.getElementById('total-price').innerText = total;
+
+    // حذف منتج من السلة
+    function removeFromCart(index) {
+      cart.splice(index,1);
+      localStorage.setItem('cart',JSON.stringify(cart));
+      location.reload();
+    }
+
+    // تأكيد الطلب = الانتقال لصفحة الفاتورة
+    function checkout() {
+      if(cart.length === 0) {
+        alert("⚠️ السلة فارغة!");
+      } else {
+        window.location.href = 'invoice.html';
+      }
+    }
+  </script>
+
+</body>
+</html>
